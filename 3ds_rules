@@ -28,16 +28,16 @@ endif
 
 #---------------------------------------------------------------------------------
 %.smdh: $(APP_ICON) $(MAKEFILE_LIST)
-	@smdhtool --create "$(APP_TITLE)" "$(APP_DESCRIPTION)" "$(APP_AUTHOR)" $(APP_ICON) $@
-	@echo built ... $(notdir $@)
+	$(SILENTCMD)smdhtool --create "$(APP_TITLE)" "$(APP_DESCRIPTION)" "$(APP_AUTHOR)" $(APP_ICON) $@
+	$(SILENTMSG) built ... $(notdir $@)
 
 #---------------------------------------------------------------------------------
 %.3dsx: %.elf
-	@3dsxtool $< $@ $(_3DSXFLAGS)
-	@echo built ... $(notdir $@)
+	$(SILENTCMD)3dsxtool $< $@ $(_3DSXFLAGS)
+	$(SILENTMSG) built ... $(notdir $@)
 
 #---------------------------------------------------------------------------------
 %.elf:
-	@echo linking $(notdir $@)
-	@$(LD) $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
-	@$(NM) -CSn $@ > $(notdir $*.lst)
+	$(SILENTMSG) linking $(notdir $@)
+	$(SILENTCMD)$(LD) $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
+	$(SILENTCMD)$(NM) -CSn $@ > $(notdir $*.lst)

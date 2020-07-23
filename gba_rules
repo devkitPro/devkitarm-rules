@@ -10,16 +10,16 @@ LIBGBA	:=	$(DEVKITPRO)/libgba
 
 #---------------------------------------------------------------------------------
 %.gba: %.elf
-	@$(OBJCOPY) -O binary $< $@
+	$(SILENTCMD)$(OBJCOPY) -O binary $< $@
 	@echo built ... $(notdir $@)
-	@gbafix $@
+	$(SILENTCMD)gbafix $@
 
 #---------------------------------------------------------------------------------
 %_mb.elf:
-	@echo linking multiboot
-	@$(LD) -specs=gba_mb.specs $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
+	$(SILENTMSG) linking multiboot
+	$(SILENTCMD)$(LD) -specs=gba_mb.specs $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
 
 #---------------------------------------------------------------------------------
 %.elf:
-	@echo linking cartridge
-	@$(LD)  $(LDFLAGS) -specs=gba.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@
+	$(SILENTMSG) linking cartridge
+	$(SILENTCMD)$(LD)  $(LDFLAGS) -specs=gba.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@

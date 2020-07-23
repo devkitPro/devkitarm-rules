@@ -6,15 +6,15 @@ LIBMIRKO	:=	$(DEVKITPRO)/libmirko
 
 #---------------------------------------------------------------------------------
 %.fxe: %.bin
-	@b2fxec -a "$(AUTHOR)" -t "$(TITLE)" $< $@
-	@echo built ... $(notdir $@)
+	$(SILENTCMD)b2fxec -a "$(AUTHOR)" -t "$(TITLE)" $< $@
+	$(SILENTMSG) built ... $(notdir $@)
 
 #---------------------------------------------------------------------------------
 %.bin: %.elf
-	@$(OBJCOPY) -O binary $< $@
-	@echo built ... $(notdir $@)
+	$(SILENTCMD)$(OBJCOPY) -O binary $< $@
+	$(SILENTMSG) built ... $(notdir $@)
 
 #---------------------------------------------------------------------------------
 %.elf:
-	@echo linking binary
-	@$(LD)  $(LDFLAGS) -specs=gp32.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@
+	$(SILENTMSG) linking binary
+	$(SILENTCMD)$(LD)  $(LDFLAGS) -specs=gp32.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@
