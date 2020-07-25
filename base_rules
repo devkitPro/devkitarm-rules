@@ -99,10 +99,3 @@ export PORTLIBS_PATH	:=	$(DEVKITPRO)/portlibs
 	$(SILENTMSG) $(notdir $<)
 	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d -x assembler-with-cpp $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
-#---------------------------------------------------------------------------------
-# canned command sequence for binary data
-#---------------------------------------------------------------------------------
-define bin2o
-	bin2s -a 32 -H `(echo $(<F) | tr . _)`.h $< | $(AS) -o $(<F).o
-endef
-
