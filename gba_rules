@@ -6,6 +6,8 @@ include $(DEVKITARM)/base_rules
 
 PORTLIBS	:=	$(PORTLIBS_PATH)/gba $(PORTLIBS_PATH)/armv4
 
+export SHELL := env PATH=$(PORTLIBS_PATH)/gba/bin:$(PATH) $(BASESHELL)
+
 LIBGBA	:=	$(DEVKITPRO)/libgba
 
 #---------------------------------------------------------------------------------

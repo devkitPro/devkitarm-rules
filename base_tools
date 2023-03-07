@@ -4,14 +4,14 @@
 UNAME_S	:=	$(shell uname -s)
 UNAME_R	:=	$(shell uname -r)
 
-ifneq (,$(findstring Darwin,$(UNAME_S)))
-	export SHELL=/bin/bash
-endif
+export BASESHELL := $(SHELL)
+
 #---------------------------------------------------------------------------------
 # path to tools
 #---------------------------------------------------------------------------------
 DEVKITPATH=$(shell echo "$(DEVKITPRO)" | sed -e 's/^\([a-zA-Z]\):/\/\1/')
-export PATH	:=	$(DEVKITPATH)/tools/bin:$(DEVKITPATH)/devkitARM/bin:$(PATH)
+export SHELL := env PATH=$(DEVKITPATH)/tools/bin:$(DEVKITPATH)/devkitARM/bin:$(PATH) $(BASESHELL)
+
 
 #---------------------------------------------------------------------------------
 # the prefix on the compiler executables
