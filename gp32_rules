@@ -2,8 +2,6 @@
 
 PORTLIBS	:=	$(PORTLIBS_PATH)/gp32 $(PORTLIBS_PATH)/armv4
 
-export SHELL := env PATH=$(PORTLIBS_PATH)/gp32/bin:$(PATH) $(BASESHELL)
-
 LIBMIRKO	:=	$(DEVKITPRO)/libmirko
 
 #---------------------------------------------------------------------------------

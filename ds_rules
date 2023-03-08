@@ -6,8 +6,6 @@ include $(DEVKITARM)/base_rules
 
 PORTLIBS	:=	$(PORTLIBS_PATH)/nds $(PORTLIBS_PATH)/armv5te
 
-export SHELL := env PATH=$(PORTLIBS_PATH)/nds/bin:$(PATH) $(BASESHELL)
-
 LIBNDS		:=	$(DEVKITPRO)/libnds
 
 ifeq ($(strip $(GAME_TITLE)),)

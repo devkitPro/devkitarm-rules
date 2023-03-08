@@ -6,7 +6,7 @@ include $(DEVKITARM)/base_rules
 
 PORTLIBS	:=	$(PORTLIBS_PATH)/3ds
 
-export SHELL := env PATH=$(PORTLIBS_PATH)/3ds/bin:$(PATH) $(BASESHELL)
+export PATH := $(PORTLIBS_PATH)/3ds/bin:$(PATH)
 
 CTRULIB	?=	$(DEVKITPRO)/libctru
 
