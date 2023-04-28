@@ -4,9 +4,9 @@ endif
 
 include $(DEVKITARM)/base_rules
 
-PORTLIBS	:=	$(PORTLIBS_PATH)/gba $(PORTLIBS_PATH)/armv4
-
-LIBGBA		:=	$(DEVKITPRO)/libgba
+PORTLIBS	:= $(PORTLIBS_PATH)/gba $(PORTLIBS_PATH)/armv4t
+export PATH := $(PORTLIBS_PATH)/gba/bin:$(PORTLIBS_PATH)/armv4t/bin:$(PATH)
+LIBGBA		:= $(DEVKITPRO)/libgba
 
 ifeq ($(strip $(GAME_TITLE)),)
 GAME_TITLE	:=	$(notdir $(OUTPUT))
