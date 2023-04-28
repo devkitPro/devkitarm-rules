@@ -48,6 +48,8 @@ endif
 # canned command sequence for binary data
 #---------------------------------------------------------------------------------
 define bin2o
-	bin2s -a 4 -H `(echo $(<F) | tr . _)`.h $< | $(AS) -o $(<F).o
+    $(SILENTCMD)mkdir -p $(dir $@)
+    $(SILENTCMD)bin2s -a 4 -H $(dir $@)`(echo $(<F) | tr . _)`.h $< > $(@D)/$(<F).s
+	$(SILENTCMD)$(CC) -x assembler-with-cpp $(CPPFLAGS) $(ASFLAGS) -c $(@D)/$(<F).s -o $(@D)/$(<F).o
 endef
 
