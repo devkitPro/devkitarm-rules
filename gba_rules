@@ -6,13 +6,25 @@ include $(DEVKITARM)/base_rules
 
 PORTLIBS	:=	$(PORTLIBS_PATH)/gba $(PORTLIBS_PATH)/armv4
 
-LIBGBA	:=	$(DEVKITPRO)/libgba
+LIBGBA		:=	$(DEVKITPRO)/libgba
+
+ifeq ($(strip $(GAME_TITLE)),)
+GAME_TITLE	:=	$(notdir $(OUTPUT))
+endif
+
+ifeq ($(strip $(GAME_CODE)),)
+GAME_CODE	:=	0000
+endif
+
+ifeq ($(strip $(MAKER_CODE)),)
+MAKER_CODE	:=	00
+endif
 
 #---------------------------------------------------------------------------------
 %.gba: %.elf
 	$(SILENTCMD)$(OBJCOPY) -O binary $< $@
 	@echo built ... $(notdir $@)
-	$(SILENTCMD)gbafix $@
+	$(SILENTCMD)gbafix $@ -t$(GAME_TITLE) -c$(GAME_CODE) -m$(MAKER_CODE)
 
 #---------------------------------------------------------------------------------
 %_mb.elf:
