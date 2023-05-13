@@ -38,5 +38,6 @@ endif
 #---------------------------------------------------------------------------------
 %.elf:
 	$(SILENTMSG) linking $(notdir $@)
+	$(ADD_COMPILE_COMMAND) end
 	$(SILENTCMD)$(LD) $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
 	$(SILENTCMD)$(NM) -CSn $@ > $(notdir $*.lst)

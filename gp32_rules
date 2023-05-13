@@ -17,4 +17,5 @@ LIBMIRKO	:=	$(DEVKITPRO)/libmirko
 #---------------------------------------------------------------------------------
 %.elf:
 	$(SILENTMSG) linking binary
+	$(ADD_COMPILE_COMMAND) end
 	$(SILENTCMD)$(LD)  $(LDFLAGS) -specs=gp32.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@

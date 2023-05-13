@@ -5,7 +5,6 @@ include $(DEVKITARM)/base_tools
 #---------------------------------------------------------------------------------
 export PORTLIBS_PATH	:=	$(DEVKITPRO)/portlibs
 
-
 #---------------------------------------------------------------------------------
 %.a:
 #---------------------------------------------------------------------------------
@@ -14,88 +13,51 @@ export PORTLIBS_PATH	:=	$(DEVKITPRO)/portlibs
 	$(SILENTCMD)$(AR) -rc $@ $^
 
 #---------------------------------------------------------------------------------
-%.arm.o: %.arm.cpp
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.arm.d $(CPPFLAGS) $(CXXFLAGS) -marm -c $< -o $@ $(ERROR_FILTER)
+%.arm.o: CFLAGS    += -marm
+%.arm.o: CXXFLAGS  += -marm
+%.arm.o: OBJCFLAGS += -marm
 
 #---------------------------------------------------------------------------------
-%.arm.o: %.arm.c
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.arm.d $(CPPFLAGS) $(CFLAGS) -marm -c $< -o $@ $(ERROR_FILTER)
+%.thumb.o: CFLAGS    += -mthumb
+%.thumb.o: CXXFLAGS  += -mthumb
+%.thumb.o: OBJCFLAGS += -mthumb
 
 #---------------------------------------------------------------------------------
-%.arm.o: %.arm.m
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.arm.d $(CPPFLAGS) $(OBJCFLAGS) -marm -c $< -o $@ $(ERROR_FILTER)
+%.iwram.o: CFLAGS    += -marm -mlong-calls
+%.iwram.o: CXXFLAGS  += -marm -mlong-calls
+%.iwram.o: OBJCFLAGS += -marm -mlong-calls
 
 #---------------------------------------------------------------------------------
-%.thumb.o: %.thumb.cpp
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.thumb.d $(CPPFLAGS) $(CXXFLAGS) -mthumb -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.thumb.o: %.thumb.c
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.thumb.d $(CPPFLAGS) $(CFLAGS) -mthumb -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.thumb.o: %.thumb.m
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.thumb.d $(CPPFLAGS) $(OBJCFLAGS) -mthumb -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.iwram.o: %.iwram.cpp
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.iwram.d $(CPPFLAGS) $(CXXFLAGS) -marm -mlong-calls -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.iwram.o: %.iwram.c
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.iwram.d $(CPPFLAGS) $(CFLAGS) -marm -mlong-calls -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.iwram.o: %.iwram.m
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.iwram.d $(CPPFLAGS) $(OBJCFLAGS) -marm -mlong-calls -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.itcm.o: %.itcm.cpp
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.itcm.d $(CPPFLAGS) $(CXXFLAGS) -marm -mlong-calls -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.itcm.o: %.itcm.c
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.itcm.d $(CPPFLAGS) $(CFLAGS) -marm -mlong-calls -c $< -o $@ $(ERROR_FILTER)
-
-#---------------------------------------------------------------------------------
-%.itcm.o: %.itcm.m
-	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.itcm.d $(CPPFLAGS) $(OBJCFLAGS) -marm -mlong-calls -c $< -o $@ $(ERROR_FILTER)
-
+%.itcm.o: CFLAGS     += -marm -mlong-calls
+%.itcm.o: CXXFLAGS   += -marm -mlong-calls
+%.itcm.o:  OBJCFLAGS += -marm -mlong-calls
 
 #---------------------------------------------------------------------------------
 %.o: %.cpp
 	$(SILENTMSG) $(notdir $<)
+	$(ADD_COMPILE_COMMAND) add $(CXX) "$(CPPFLAGS) $(CXXFLAGS) -c $< -o $@" $<
 	$(SILENTCMD)$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.d $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.c
 	$(SILENTMSG) $(notdir $<)
 	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d $(CPPFLAGS) $(CFLAGS) -c $< -o $@ $(ERROR_FILTER)
+	$(ADD_COMPILE_COMMAND) add $(CC) "$(CPPFLAGS) $(CFLAGS) -c $< -o $@" $<
 
 #---------------------------------------------------------------------------------
 %.o: %.m
 	$(SILENTMSG) $(notdir $<)
+	$(ADD_COMPILE_COMMAND) add $(CC) "$(CPPFLAGS) $(OBJCFLAGS) -c $< -o $@" $<
 	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d $(CPPFLAGS) $(OBJCFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.s
 	$(SILENTMSG) $(notdir $<)
+	$(ADD_COMPILE_COMMAND) add $(CC) "-x assembler-with-cpp $(CPPFLAGS) $(ASFLAGS) -c $< -o $@" $<
 	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d -x assembler-with-cpp $(CPPFLAGS) $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.S
 	$(SILENTMSG) $(notdir $<)
+	$(ADD_COMPILE_COMMAND) add $(CC) "-x assembler-with-cpp $(CPPFLAGS) $(ASFLAGS) -c $< -o $@" $<
 	$(SILENTCMD)$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d -x assembler-with-cpp $(CPPFLAGS) $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
-

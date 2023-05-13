@@ -29,9 +29,11 @@ endif
 #---------------------------------------------------------------------------------
 %_mb.elf:
 	$(SILENTMSG) linking multiboot
+	$(ADD_COMPILE_COMMAND) end
 	$(SILENTCMD)$(LD) -specs=gba_mb.specs $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
 
 #---------------------------------------------------------------------------------
 %.elf:
 	$(SILENTMSG) linking cartridge
+	$(ADD_COMPILE_COMMAND) end
 	$(SILENTCMD)$(LD)  $(LDFLAGS) -specs=gba.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@
