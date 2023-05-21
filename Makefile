@@ -1,6 +1,6 @@
 _MAJOR	:= 1
 _MINOR	:= 4
-_PATCH	:= 0
+_PATCH	:= 1
 
 FILES	:=	3ds_rules  base_rules  base_tools  ds_rules  gba_rules  gp32_rules
 
