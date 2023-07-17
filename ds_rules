@@ -4,8 +4,8 @@ endif
 
 include $(DEVKITARM)/base_rules
 
-PORTLIBS	:=	$(PORTLIBS_PATH)/nds $(PORTLIBS_PATH)/armv5te $(PORTLIBS_PATH)/armv4t
-export PATH := $(PORTLIBS_PATH)/nds/bin:$(PORTLIBS_PATH)/armv5te:$(PORTLIBS_PATH)/armv4t/bin:$(PATH)
+PORTLIBS	:=	$(DEVKITPRO)/portlibs/nds $(DEVKITPRO)/portlibs/armv5te $(DEVKITPRO)/portlibs/armv4t
+export PATH := $(DEVKITPRO)/portlibs/nds/bin:$(DEVKITPRO)/portlibs/armv5te:$(DEVKITPRO)/portlibs/armv4t/bin:$(PATH)
 
 LIBNDS		:=	$(DEVKITPRO)/libnds
 

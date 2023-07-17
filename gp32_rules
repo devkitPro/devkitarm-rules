@@ -1,7 +1,7 @@
 -include $(DEVKITARM)/base_rules
 
-PORTLIBS	:=	$(PORTLIBS_PATH)/gp32 $(PORTLIBS_PATH)/armv4t
-export PATH := $(PORTLIBS_PATH)/gp32/bin:$(PORTLIBS_PATH)/armv4t/bin:$(PATH)
+PORTLIBS	:=	$(DEVKITPRO)/portlibs/gp32 $(DEVKITPRO)/portlibs/armv4t
+export PATH := $(DEVKITPRO)/portlibs/gp32/bin:$(DEVKITPRO)/portlibs/armv4t/bin:$(PATH)
 LIBMIRKO	:=	$(DEVKITPRO)/libmirko
 
 #---------------------------------------------------------------------------------
