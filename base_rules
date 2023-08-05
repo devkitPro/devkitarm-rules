@@ -1,4 +1,4 @@
-include $(DEVKITARM)/base_tools
+include $(DEVKITPRO)/devkitARM/base_tools
 
 #---------------------------------------------------------------------------------
 %.a:

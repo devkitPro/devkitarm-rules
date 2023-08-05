@@ -2,11 +2,12 @@ ifeq ($(strip $(DEVKITPRO)),)
 $(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro)
 endif
 
-include $(DEVKITARM)/base_rules
 
 PORTLIBS	:= $(DEVKITPRO)/portlibs/gba $(DEVKITPRO)/portlibs/armv4t
 export PATH := $(DEVKITPRO)/portlibs/gba/bin:$(DEVKITPRO)/portlibs/armv4t/bin:$(PATH)
 LIBGBA		:= $(DEVKITPRO)/libgba
+
+include $(DEVKITPRO)/devkitARM/base_rules
 
 ifeq ($(strip $(GAME_TITLE)),)
 GAME_TITLE	:=	$(notdir $(OUTPUT))

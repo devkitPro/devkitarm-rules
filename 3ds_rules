@@ -2,12 +2,14 @@ ifeq ($(strip $(DEVKITPRO)),)
 $(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro)
 endif
 
-include $(DEVKITARM)/base_rules
-
 PORTLIBS	:=	$(DEVKITPRO)/portlibs/3ds
-export PATH := $(DEVKITPRO)/portlibs/3ds/bin:$(PATH)
 
 CTRULIB	?=	$(DEVKITPRO)/libctru
+
+export PATH := $(DEVKITPRO)/portlibs/3ds/bin:$(PATH)
+
+
+include $(DEVKITPRO)/devkitARM//base_rules
 
 ifeq ($(strip $(APP_TITLE)),)
 APP_TITLE	:=	$(notdir $(OUTPUT))
