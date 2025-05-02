@@ -5,7 +5,7 @@ _PATCH	:= 0
 FILES	:=	3ds_rules  base_rules  base_tools  ds_rules  gba_rules  gp32_rules
 
 all:
-	@echo "use dist or install targets"
+	$(error use dist or install targets)
 
 install:
 	@mkdir -p $(DESTDIR)/opt/devkitpro/devkitARM

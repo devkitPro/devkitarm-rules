@@ -1,5 +1,5 @@
 ifeq ($(strip $(DEVKITPRO)),)
-$(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro)
+$(error Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro)
 endif
 
 PORTLIBS	:=	$(DEVKITPRO)/portlibs/gp32 $(DEVKITPRO)/portlibs/armv4t
